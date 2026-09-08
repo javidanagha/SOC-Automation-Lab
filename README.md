@@ -33,7 +33,7 @@ ModSecurity (WAF)  ──blocks──▶  Wazuh (SIEM)
                                               (incident case)
 ```
 
-See docs/topology.png for the full architecture diagram and docs/hosts.png for the host inventory.
+See [`docs/topology.png`](docs/topology.png) for the full architecture diagram and [`docs/hosts.png`](docs/hosts.png) for the host inventory.
 
 ---
 
