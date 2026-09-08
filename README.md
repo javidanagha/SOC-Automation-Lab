@@ -21,7 +21,7 @@ ModSecurity WAF → Wazuh SIEM → TheHive / Cortex / Shuffle SOAR → Telegram
 
 ## 📌 Overview
 
-An attacker sends a request against a damn vulnerable web app (DVWA). The request is inspected and blocked by a WAF, logged and matched against custom detection rules by a SIEM, enriched with threat intelligence, and turned into a tracked incident — all automatically, with no manual step in between.
+An attacker sends a request against a damn vulnerable web app (DVWA). The request is inspected and blocked by a WAF, logged and matched against custom detection rules by a SIEM, enriched with threat intelligence, and turned into a tracked incident. All automatically, with no manual step in between.
 
 ```
                               🎯 Attacker
@@ -53,7 +53,7 @@ An attacker sends a request against a damn vulnerable web app (DVWA). The reques
 |:---|:---|:---|
 | 🎯 **Target** | DVWA (Docker) | Intentionally vulnerable web application |
 | 🧱 **Prevention** | ModSecurity + OWASP CRS 3.3.8 | Web application firewall, reverse-proxied in front of the target |
-| 🔍 **Detection** | Wazuh 4.14 | SIEM — log aggregation, custom detection rules mapped to MITRE ATT&CK |
+| 🔍 **Detection** | Wazuh 4.14 | SIEM - log aggregation, custom detection rules mapped to MITRE ATT&CK |
 | 🌐 **Enrichment** | Cortex 3.1.8 | Automated IP reputation lookups (AbuseIPDB, VirusTotal) |
 | 🗂️ **Case management** | TheHive 5.2 | Turns alerts into tracked, assignable incidents |
 | 🔀 **Orchestration** | Shuffle | Connects Wazuh alerts to TheHive case creation |
