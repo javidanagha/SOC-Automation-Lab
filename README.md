@@ -40,7 +40,7 @@ ModSecurity (WAF)  ──blocks──▶  Wazuh (SIEM)
 |---|---|---|
 | Target | DVWA (Docker) | Intentionally vulnerable web application |
 | Prevention | ModSecurity + OWASP CRS 3.3.8 | Web application firewall, reverse-proxied in front of the target |
-| Detection | Wazuh 4.14 | SIEM — log aggregation, custom detection rules mapped to MITRE ATT&CK |
+| Detection | Wazuh 4.14 | SIEM - log aggregation, custom detection rules mapped to MITRE ATT&CK |
 | Enrichment | Cortex 3.1.8 | Automated IP reputation lookups (AbuseIPDB, VirusTotal) |
 | Case management | TheHive 5.2 | Turns alerts into tracked, assignable incidents |
 | Orchestration | Shuffle | Connects Wazuh alerts to TheHive case creation |
