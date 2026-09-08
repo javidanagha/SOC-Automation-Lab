@@ -1,0 +1,73 @@
+services:
+  cassandra:
+    image: cassandra:4.1
+    container_name: cassandra
+    restart: unless-stopped
+    environment:
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=1G
+      - CASSANDRA_CLUSTER_NAME=thp
+    volumes:
+      - ./vol/cassandra-data:/var/lib/cassandra
+
+  elasticsearch:
+    image: elasticsearch:7.17.28
+    container_name: elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - cluster.name=hive
+      - thread_pool.search.queue_size=100000
+      - thread_pool.write.queue_size=10000
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./vol/elasticsearch-data:/usr/share/elasticsearch/data
+
+  cortex:
+    image: thehiveproject/cortex:3.1.8
+    container_name: cortex
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    environment:
+      - job_directory=/opt/cortex-jobs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/cortex-jobs:/opt/cortex-jobs
+      - ./cortex-config/application.conf:/etc/cortex/application.conf
+    ports:
+      - "9001:9001"
+
+  thehive:
+    image: strangebee/thehive:5.2
+    container_name: thehive
+    restart: unless-stopped
+    depends_on:
+      - cassandra
+      - elasticsearch
+      - cortex
+    environment:
+      - JVM_OPTS=-Xms1g -Xmx1g
+
+    command:
+      - --secret
+      - CHANGE_ME
+      - --cql-hostnames
+      - cassandra
+      - --index-backend
+      - elasticsearch
+      - --es-hostnames
+      - elasticsearch
+      - --cortex-hostnames
+      - cortex
+      - --cortex-keys
+      - CORTEX_API_KEY
+    volumes:
+      - ./vol/thehive-data:/opt/thp/thehive/data
+    ports:
+      - "9000:9000"
