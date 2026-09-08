@@ -65,19 +65,19 @@ An attacker sends a request against a damn vulnerable web app (DVWA). The reques
 
 ```
 soc-lab/
-├── 📊 docs/
-│   ├── topology.png              # network + data flow diagram
-│   └── hosts.png                 # host inventory table
-├── 🔍 wazuh/
-│   └── local_rules.xml           # custom detection rules (MITRE-mapped)
-├── 🧱 modsecurity/
-│   └── dvwa-proxy.conf           # reverse proxy config placing the WAF in-path
-├── 🔌 integrations/
-│   ├── custom-telegram.py        # Wazuh → Telegram alert script
-│   └── custom-shuffle.py         # Wazuh → Cortex + Shuffle webhook script
-├── 🔀 soar/
-│   ├── thehive-cortex-compose.yml
-│   └── shuffle-compose.yml
+├─ 📊 docs/
+│  ├── topology.png                # network + data flow diagram
+│  └── hosts.png                   # host inventory table
+├──🔍 wazuh/
+│  └── local_rules.xml             # custom detection rules
+├─ 🧱 modsecurity/
+│  └── dvwa-proxy.conf             # reverse proxy config placing the WAF in-path
+├─ 🔌 integrations/
+│  ├── custom-telegram.py          # Wazuh → Telegram alert script
+│  └── custom-shuffle.py           # Wazuh → Cortex + Shuffle webhook script
+├─ 🔀 soar/
+│  ├── thehive-cortex-compose.yml  # TheHive + Cortex + Cassandra + Elasticsearch stack
+│  └── shuffle-compose.yml         # Shuffle SOAR orchestration engine
 ├── .gitignore
 ├── LICENSE
 └── README.md
