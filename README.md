@@ -32,9 +32,6 @@ ModSecurity (WAF)  ──blocks──▶  Wazuh (SIEM)
                                                   TheHive
                                               (incident case)
 ```
-
-See [`docs/topology.png`](docs/topology.png) for the full architecture diagram and [`docs/hosts.png`](docs/hosts.png) for the host inventory.
-
 ---
 
 ## Tech stack
