@@ -4,7 +4,7 @@
 
 **A fully automated detection-to-response security pipeline, built from scratch.**
 
-Wazuh SIEM → ModSecurity WAF → TheHive / Cortex / Shuffle SOAR → Telegram
+ModSecurity WAF → Wazuh SIEM → TheHive / Cortex / Shuffle SOAR → Telegram
 
 <br>
 
