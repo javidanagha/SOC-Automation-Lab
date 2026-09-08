@@ -73,19 +73,16 @@ soc-lab/
 
 ---
 
-## Key challenges solved
+## Errors you might encounter
 
-Every non-trivial part of this build came from debugging, not documentation. A few worth calling out:
+**ModSecurity was silently not blocking anything.** The target app runs in its own container with its own Apache instance, fully independent from the host Apache where ModSecurity was installed. Fixed by making the host Apache a reverse proxy in front of the container, so all traffic passes through the WAF first.
 
-- **ModSecurity was silently not blocking anything.** The target app runs in its own container with its own Apache instance, fully independent from the host Apache where ModSecurity was installed. Fixed by making the host Apache a reverse proxy in front of the container, so all traffic passes through the WAF first.
+**Wazuh alerts never reached the SOAR webhook.** ModSecurity's JSON audit log ballooned to 30+ KB per event once triggered rules and OWASP CRS metadata were included — too large for Shuffle to process. Fixed with a purpose-built integration script that extracts only the fields the pipeline actually needs.
 
-- **Wazuh alerts never reached the SOAR webhook.** ModSecurity's JSON audit log ballooned to 30+ KB per event once triggered rules and OWASP CRS metadata were included — too large for Shuffle to process. Fixed with a purpose-built integration script that extracts only the fields the pipeline actually needs.
+**Shuffle workers never started.** Docker was running in Swarm mode by default, and the orchestration engine (Orborus) couldn't dispatch work to a single-node Swarm cluster. Fixed with `docker swarm leave --force`.
 
-- **Shuffle workers never started.** Docker was running in Swarm mode by default, and the orchestration engine (Orborus) couldn't dispatch work to a single-node Swarm cluster. Fixed with `docker swarm leave --force`.
+**Filebeat was stuck in a crash loop.** A `seccomp`/kernel incompatibility caused silent `pthread_create` failures. Fixed by disabling the seccomp sandbox in Filebeat's config.
 
-- **Filebeat was stuck in a crash loop.** A `seccomp`/kernel incompatibility caused silent `pthread_create` failures. Fixed by disabling the seccomp sandbox in Filebeat's config.
-
-Full write-up of each issue — symptom, root cause, fix — is in the project report (see `docs/`).
 
 ---
 
