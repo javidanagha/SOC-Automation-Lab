@@ -2,6 +2,8 @@
 
 A fully functional security monitoring lab built from scratch, chaining a **Wazuh SIEM**, **ModSecurity WAF**, and a **TheHive / Cortex / Shuffle SOAR** stack into a single automated detection-to-response pipeline.
 
+Built as part of the Xploit Academy Purple Team SP01 program.
+
 ![Wazuh](https://img.shields.io/badge/Wazuh-4.14-1F3864)
 ![ModSecurity](https://img.shields.io/badge/ModSecurity-OWASP%20CRS%203.3.8-1E7B4D)
 ![TheHive](https://img.shields.io/badge/TheHive-5.2-D68910)
@@ -13,7 +15,7 @@ A fully functional security monitoring lab built from scratch, chaining a **Wazu
 
 ## Overview
 
-An attacker sends a request against a damn vulnerable web app (DVWA). The request is inspected and blocked by a WAF, logged and matched against custom detection rules by a SIEM, enriched with threat intelligence, and turned into a tracked incident — all automatically, with no manual step in between.
+An attacker sends a request against a deliberately vulnerable web app (DVWA). The request is inspected and blocked by a WAF, logged and matched against custom detection rules by a SIEM, enriched with threat intelligence, and turned into a tracked incident — all automatically, with no manual step in between.
 
 ```
 Attacker
@@ -29,6 +31,9 @@ ModSecurity (WAF)  ──blocks──▶  Wazuh (SIEM)
                                                      ▼
                                                   TheHive
                                               (incident case)
+```
+
+See [`docs/topology.png`](docs/topology.png) for the full architecture diagram and [`docs/hosts.png`](docs/hosts.png) for the host inventory.
 
 ---
 
