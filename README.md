@@ -93,7 +93,7 @@ soc-lab/
 <summary><b>1️⃣ ModSecurity was blocking nothing, even though it was installed correctly</b></summary>
 <br>
 
-The target application runs inside a Docker container with its own internal Apache server. ModSecurity, however, was installed on the *host's* Apache — a completely separate process. Traffic sent to the container never passed through the host, so the WAF never saw it.
+The target application runs inside a Docker container with its own internal Apache server. ModSecurity, however, was installed on the *host's* Apache - a completely separate process. Traffic sent to the container never passed through the host, so the WAF never saw it.
 
 **Fix:** configured the host Apache as a reverse proxy in front of the container. All traffic now hits ModSecurity first, before ever reaching the application.
 </details>
@@ -102,7 +102,7 @@ The target application runs inside a Docker container with its own internal Apac
 <summary><b>2️⃣ Wazuh detected attacks correctly, but alerts never reached the SOAR pipeline</b></summary>
 <br>
 
-ModSecurity's audit log includes every matched rule, its full regex pattern, and OWASP CRS metadata — a single event could balloon past 30 KB of JSON. Shuffle's webhook couldn't handle payloads that large and silently dropped them.
+ModSecurity's audit log includes every matched rule, its full regex pattern, and OWASP CRS metadata - a single event could balloon past 30 KB of JSON. Shuffle's webhook couldn't handle payloads that large and silently dropped them.
 
 **Fix:** wrote a small integration script that extracts only the handful of fields the pipeline actually needs (source IP, rule ID, request line, etc.) before forwarding — typically under 1 KB per alert.
 </details>
