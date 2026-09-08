@@ -1,0 +1,8 @@
+.env
+*.conf.bak
+ossec.conf
+wazuh-passwords.txt
+*.key
+*.pem
+vol/
+cortex-config/
