@@ -1,6 +1,6 @@
 <group name="local,syslog,web,attack,modsecurity,">
 
-  <!-- A03:2021 Injection - SQL Injection (SQLi) -->
+  <!-- SQL Injection (SQLi) -->
   <rule id="100051" level="10">
     <field name="request.request_line" type="pcre2">(?i)(\bUNION\b|\bSELECT\b|%27|\x27|--|\bOR\b\s+\d+=\d+|\bAND\b\s+\d+=\d+|\bSLEEP\(|\bBENCHMARK\b)</field>
     <description>ModSecurity / Web: SQL Injection (SQLi) Attempt Detected</description>
@@ -9,7 +9,7 @@
     </mitre>
   </rule>
 
-  <!-- A03:2021 Injection - Cross-Site Scripting (XSS) -->
+  <!-- Injection - Cross-Site Scripting (XSS) -->
   <rule id="100052" level="10">
     <field name="request.request_line" type="pcre2">(?i)(&lt;script|%3Cscript|javascript:|onerror=|onload=|alert\(|document\.cookie)</field>
     <description>ModSecurity / Web: Cross-Site Scripting (XSS) Attempt Detected</description>
@@ -18,7 +18,7 @@
     </mitre>
   </rule>
 
-  <!-- A01:2021 Broken Access Control - Path Traversal / LFI -->
+  <!-- Broken Access Control - Path Traversal / LFI -->
   <rule id="100053" level="10">
     <field name="request.request_line" type="pcre2">(?i)(\.\./|\.\.\\|%2e%2e%2f|%2e%2e/|/etc/passwd|/etc/shadow|win\.ini)</field>
     <description>ModSecurity / Web: Path Traversal / LFI Attempt Detected</description>
@@ -27,7 +27,7 @@
     </mitre>
   </rule>
 
-  <!-- A03:2021 Injection - Command Injection / RCE -->
+  <!-- Injection - Command Injection / RCE -->
   <rule id="100054" level="10">
     <field name="request.request_line" type="pcre2">(?i)(;|\||`|\$\(|\bwhoami\b|\bcat\s+/|\bcmd\.exe\b|\bpowershell\b|\bwget\b|\bcurl\b\s+http)</field>
     <description>ModSecurity / Web: Command Injection / RCE Attempt Detected</description>
@@ -36,7 +36,7 @@
     </mitre>
   </rule>
 
-  <!-- A05:2021 Security Misconfiguration - Sensitive File Disclosure -->
+  <!-- Security Misconfiguration - Sensitive File Disclosure -->
   <rule id="100055" level="10">
     <field name="request.request_line" type="pcre2">(?i)(\.env|\.git/|\.htaccess|wp-config\.php|phpinfo\.php|config\.json|backup\.sql|\.DS_Store|web\.config)</field>
     <description>ModSecurity / Web: Sensitive File Disclosure Attempt Detected</description>
@@ -45,7 +45,7 @@
     </mitre>
   </rule>
 
-  <!-- A10:2021 Server-Side Request Forgery (SSRF) -->
+  <!-- Server-Side Request Forgery (SSRF) -->
   <rule id="100056" level="10">
     <field name="request.request_line" type="pcre2">(?i)(https?://(127\.0\.0\.1|localhost|169\.254\.169\.254|0\.0\.0\.0|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+)|file://|gopher://|dict://)</field>
     <description>ModSecurity / Web: Server-Side Request Forgery (SSRF) Attempt Detected</description>
@@ -54,7 +54,7 @@
     </mitre>
   </rule>
 
-  <!-- A08:2021 Software and Data Integrity Failures - Insecure Deserialization -->
+  <!-- Software and Data Integrity Failures - Insecure Deserialization -->
   <rule id="100057" level="10">
     <field name="request.request_line" type="pcre2">(?i)(O:\d+:"|a:\d+:\{|__PHP_Incomplete_Class|rO0AB|aced0005)</field>
     <description>ModSecurity / Web: Insecure Deserialization Attempt Detected</description>
@@ -63,13 +63,13 @@
     </mitre>
   </rule>
 
-  <!-- A07:2021 Identification and Authentication Failures - Brute Force base match -->
+  <!-- Identification and Authentication Failures - Brute Force base match -->
   <rule id="100058" level="3">
     <field name="request.request_line" type="pcre2">(?i)(login\.php|/vulnerabilities/brute|wp-login\.php|/admin/login)</field>
     <description>ModSecurity / Web: Authentication endpoint accessed</description>
   </rule>
 
-  <!-- A07:2021 Identification and Authentication Failures - Brute Force escalation -->
+  <!-- Identification and Authentication Failures - Brute Force escalation -->
   <rule id="100059" level="10" frequency="8" timeframe="30">
     <if_matched_sid>100058</if_matched_sid>
     <description>ModSecurity / Web: Possible Brute Force Attack Detected (repeated login attempts)</description>
